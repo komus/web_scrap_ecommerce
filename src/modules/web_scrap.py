@@ -18,11 +18,10 @@ def scrap_ecommerce_amazon(samples_num: int = 10,  max_pagination: int = 20,  *a
     items = []
     total_count = len(args)*samples_num
     for x in args:
-        print(x)
         for num in range(0, max_pagination):
             url = f"https://www.amazon.com/s?k={x}&page={num}"
 
-            page_content = get_page_content(url, samples_num)
+            page_content = get_page_content(url, samples_num, x)
             for y in range(len(page_content)):
                 items.append(page_content[y])
             if len(items) >= total_count:
@@ -31,8 +30,7 @@ def scrap_ecommerce_amazon(samples_num: int = 10,  max_pagination: int = 20,  *a
     return pd.DataFrame(items)
 
 
-def get_page_content(url, samples_num):
-    print(url)
+def get_page_content(url, samples_num, category):
     data = []
     headers = {
         'upgrade-insecure-requests': '1',
@@ -67,7 +65,8 @@ def get_page_content(url, samples_num):
             data.append(
                 {
                     'product_id': info['data-asin'],
-                    'name': info.find("span", "a-size-base-plus a-color-base a-text-normal"),
+                    'category': category,
+                    'name': info.find("span", "a-size-base-plus a-color-base a-text-normal").text,
                     'content_link': info.a['href'],
                     'image_link': image_link,
                     'rating': ratings,
