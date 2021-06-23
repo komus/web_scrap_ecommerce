@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from typing import  List
 
 
 def scrap_ecommerce_amazon(samples_num: int = 10,  max_pagination: int = 20,  *args) -> pd.DataFrame:
     """
      A function that scrap ecommerce web and stores information 
-     like name, description, images, price, seller etc
+     like name, price, image etc. This function is for multiple keywords scraping
 
      parameter: function accepts:
         number of samples: number of samples to get for each keyword. default is 10
@@ -30,7 +31,19 @@ def scrap_ecommerce_amazon(samples_num: int = 10,  max_pagination: int = 20,  *a
     return pd.DataFrame(items)
 
 
-def get_page_content(url, samples_num, category):
+def get_page_content(url:str, samples_num: int, category: str) -> List:
+    """
+         A function that scrap ecommerce web and stores information
+         like name, price, image etc. This function is for multiple keywords scraping
+
+         parameter: function accepts:
+            url: The url of amazon search page to be scraped
+
+            number of samples: number of samples to get from the url
+
+            category: the category of the searched product
+
+        """
     data = []
     headers = {
         'upgrade-insecure-requests': '1',
