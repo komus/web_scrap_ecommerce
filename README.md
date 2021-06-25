@@ -4,6 +4,7 @@ case study - Amazon.com
 
 ## Background Issues
 1. Amazon Scraping Blockage: Due to cross-site origin, scraping amazon site might return empty page. To resolve this, user agent needs to be inputted. 
+Even with user agent, some pages might not return result
 ```python
  headers = {
         'upgrade-insecure-requests': '1',
