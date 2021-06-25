@@ -14,5 +14,6 @@ try:
         host=os.getenv("HOST"),
         port=os.getenv("PORT")
     )
+
 except OperationalError as err:
     print(f"{err}")
